@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <include layout="@layout/head_title"  android:id="@+id/head"/>
+
+    <TextView
+        android:id="@+id/newuser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="新用户注册"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"/>
+
+    <TextView
+        android:id="@+id/info"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册成功后，性别不可以更改"
+        android:textColor="@color/textcolor"
+        android:layout_below="@id/newuser"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:layout_marginTop="27dp"/>
+
+   <RadioGroup
+       android:weightSum="3"
+       android:layout_width="300dp"
+       android:layout_height="100dp"
+       android:orientation="horizontal"
+       android:id="@+id/radioGroup"
+       android:layout_below="@+id/info"
+       android:layout_centerHorizontal="true"
+       android:layout_marginTop="45dp">
+
+       <RadioButton
+           android:id="@+id/registed_man"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+
+           android:layout_weight="1"
+           android:background="@drawable/manselector"
+           android:button="@null"
+           android:padding="20dp"/>
+
+       <RadioButton
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="0dp"/>
+       <RadioButton
+           android:id="@+id/registed_women"
+           android:background="@drawable/womanselector"
+           android:button="@null"
+           android:layout_weight="1"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"/>
+   </RadioGroup>
+    <Button
+        android:enabled="false"
+        android:background="@drawable/buttonshape"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:id="@+id/registed_sure"
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"/>
+
+
+
+
+</RelativeLayout>

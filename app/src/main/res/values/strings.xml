@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Chat</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="tab_home_text">附近的人</string>
+    <string name="tab_discover_text">寻缘</string>
+    <string name="tab_feed_text">朋友圈</string>
+    <string name="tab_me_text">个人</string>
+
+
+</resources>

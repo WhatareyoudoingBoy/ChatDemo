@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:padding="4dp">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/infoo_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/infoo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="mingzi"
+            android:textColor="@color/textSao"
+            android:textSize="20sp"/>
+
+        <TextView
+
+            android:id="@+id/infoo_sexy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="性别"
+            android:textColor="@color/coffer"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/infoo_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+
+            android:text="电话"
+            android:textColor="@color/title_bg"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/infoo_jianjie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentTop="true"
+            android:text="简介"
+            android:textColor="#c2c2c2"
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include layout="@layout/head_title" android:id="@+id/login_head"
+        />
+
+    <TextView
+        android:id="@+id/logininfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="用户登陆"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"/>
+
+    <EditText
+        android:id="@+id/login_username"
+        android:hint="手机号/邮箱"
+        android:maxLength="11"
+
+        android:layout_width="430dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="71dp"
+        android:layout_below="@id/logininfo"
+        />
+
+    <EditText
+        android:id="@+id/login_password"
+        android:hint="密码"
+        android:inputType="numberPassword"
+        android:layout_width="430dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:layout_below="@id/login_username"
+
+        android:layout_marginTop="17dp"/>
+
+    <CheckBox
+        android:button="@null"
+        android:id="@+id/hidepwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pwdselector"
+        android:layout_alignTop="@+id/login_password"
+       android:layout_alignParentRight="true"
+        android:layout_marginRight="40dp"/>
+
+    <Button
+
+        android:background="@drawable/buttonshape"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        android:id="@+id/login_login"
+        android:layout_marginTop="57dp"
+        android:layout_below="@id/login_password"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/login_registed"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:layout_below="@id/login_login"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="注册"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include layout="@layout/head_title"/>
+    <TextView
+        android:id="@+id/inputnum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="输入你的手机号"
+        android:textSize="20sp"
+        android:textColor="@color/textcolor"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"/>
+
+    <TextView
+        android:id="@+id/shuoming"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机号仅用于登录和保护账号"
+        android:textColor="@color/textcolor"
+        android:layout_below="@+id/inputnum"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:layout_marginTop="27dp"/>
+
+
+    <EditText
+        android:id="@+id/registed_phonenum"
+        android:hint="手机号"
+        android:maxLength="11"
+        android:phoneNumber="true"
+        android:layout_width="430dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shuoming"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp"/>
+
+    <EditText
+        android:id="@+id/registed_yanzhengma"
+        android:hint="验证码"
+        android:inputType="text"
+        android:layout_width="430dp"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:maxLength="10"
+        android:layout_below="@id/registed_phonenum"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp"/>
+    <Button
+        android:background="@drawable/buttonshape"
+        android:id="@+id/getsms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取验证码"
+        android:layout_below="@+id/registed_phonenum"
+        android:layout_toEndOf="@id/shuoming"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registed_registed"
+        android:background="@drawable/buttonshape"
+        android:layout_marginTop="89dp"
+        android:text="注册"
+        android:layout_below="@id/registed_yanzhengma"
+        android:layout_alignStart="@id/registed_yanzhengma"
+        android:layout_marginStart="29dp"/>
+
+    <Button
+        android:id="@+id/registed_canl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+        android:text="取消"
+        android:layout_alignBaseline="@+id/registed_registed"
+        android:layout_alignBottom="@+id/registed_registed"
+        android:layout_toEndOf="@+id/inputnum"/>
+
+
+</RelativeLayout>
