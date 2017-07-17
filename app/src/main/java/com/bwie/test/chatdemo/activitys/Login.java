@@ -38,6 +38,8 @@ import com.bwie.test.chatdemo.mpersenter.RegistedPersenter;
 
 import com.bwie.test.chatdemo.mview.RegistedView;
 import com.google.gson.Gson;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 /**
  * 作者： 武星宇
@@ -224,15 +226,41 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
   }
 
   @Override
-  public void viewOnSuccess(String result) {
+  public void viewOnSuccess(final String result) {
     Gson gson = new Gson();
     UserInfoBean userInfoBean = gson.fromJson(result, UserInfoBean.class);
     int result_code = userInfoBean.getResult_code();
+
     if (result_code == 200) {
-      Toast.makeText(this, "登陆成功 正在跳转中...", Toast.LENGTH_SHORT).show();
-      Intent intent = new Intent(Login.this, TabActivity.class);
-      intent.putExtra("info", result);
-      startActivity(intent);
+      String userName = userInfoBean.getData().getPhone();
+      String password = userInfoBean.getData().getPassword();
+      EMClient.getInstance().login(userName,password,new EMCallBack() {//回调
+        @Override
+        public void onSuccess() {
+          EMClient.getInstance().groupManager().loadAllGroups();
+          EMClient.getInstance().chatManager().loadAllConversations();
+          Log.d("main", "登录聊天服务器成功！");
+          Intent intent = new Intent(Login.this, TabActivity.class);
+          intent.putExtra("info", result);
+          startActivity(intent);
+
+        }
+
+        @Override
+        public void onProgress(int progress, String status) {
+
+        }
+
+        @Override
+        public void onError(int code, String message) {
+          Log.d("main", "登录聊天服务器失败！");
+          Log.d("main", message+"    --" +code);
+
+
+        }
+      });
+
+
 
     } else {
       viewOnFailed(result_code);
@@ -252,6 +280,7 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
       case 404:
         MyTost.makeText(Login.this, "请先注册后登陆", Toast.LENGTH_SHORT);
         break;
+
 
     }
 

@@ -11,6 +11,8 @@ import com.bwie.test.chatdemo.utils.PreferencesUtils;
 import com.bwie.test.chatdemo.utils.aes.JNCryptorUtils;
 import com.bwie.test.chatdemo.utils.rsa.RsaUtils;
 import com.google.gson.Gson;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class RegistedModelmpl implements RegistedModel {
   }
 
   @Override
-  public void postUserInfo(String phone, String username, String pwd, String sexy, String age, String location, String des, final RegistedModelListner listner) {
+  public void postUserInfo(final String phone, final String username, final String pwd, String sexy, String age, String location, String des, final RegistedModelListner listner) {
 
     Map<String,String> map = new HashMap<String,String>();
     map.put("user.phone",phone);
@@ -55,7 +57,7 @@ public class RegistedModelmpl implements RegistedModel {
 
 
         Gson gson = new Gson();
-        RegisterBean registerBean = gson.fromJson(result, RegisterBean.class);
+        final RegisterBean registerBean = gson.fromJson(result, RegisterBean.class);
 
         if(registerBean.getResult_code() == 200){
           PreferencesUtils.addConfigInfo(MyApplication.getApplication(),"phone",registerBean.getData().getPhone());
@@ -63,6 +65,22 @@ public class RegistedModelmpl implements RegistedModel {
           PreferencesUtils.addConfigInfo(MyApplication.getApplication(),"yxpassword",registerBean.getData().getYxpassword());
           PreferencesUtils.addConfigInfo(MyApplication.getApplication(),"uid",registerBean.getData().getUserId());
           PreferencesUtils.addConfigInfo(MyApplication.getApplication(),"nickname",registerBean.getData().getNickname());
+
+
+          /**
+           * 环信 注册 （因为是异步，得开启子线程）；
+           */
+      new Thread(){
+        @Override
+        public void run() {
+          super.run();
+          try {
+            EMClient.getInstance().createAccount(phone, Md5Utils.getMD5(pwd));//同步方法
+          } catch (HyphenateException e) {
+            e.printStackTrace();
+          }
+        }
+      }.start();
         }
         listner.registedOnSuccess(registerBean);
 
