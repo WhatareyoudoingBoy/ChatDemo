@@ -39,6 +39,7 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
   private TextView jianjie;
   private TextView lasttime;
   private Button sendMsg;
+  private String name;
 
   /**
    * 0 非好友
@@ -85,7 +86,6 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
       }
     });
 
-
   }
 
   @Override
@@ -100,6 +100,16 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
       sendMsg.setVisibility(View.VISIBLE);
       guanxi.setText("好友");
       guanxi.setTextColor(Color.GREEN);
+      sendMsg.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          name = nickname.getText().toString().trim();
+          Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
+          intent.putExtra("uidd",name);
+          startActivity(intent);
+
+        }
+      });
     } else {
       sendMsg.setVisibility(View.INVISIBLE);
       addFriend.setVisibility(View.VISIBLE);
@@ -151,6 +161,16 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
       sendMsg.setVisibility(View.VISIBLE);
       guanxi.setText("好友");
       guanxi.setTextColor(Color.GREEN);
+      sendMsg.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          name = nickname.getText().toString().trim();
+          Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
+          intent.putExtra("uidd",name);
+          startActivity(intent);
+
+        }
+      });
     } else {
       sendMsg.setVisibility(View.INVISIBLE);
       addFriend.setVisibility(View.VISIBLE);
@@ -163,6 +183,17 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
       sendMsg.setVisibility(View.VISIBLE);
       guanxi.setText("好友");
       guanxi.setTextColor(Color.GREEN);
+
+      sendMsg.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          name = nickname.getText().toString().trim();
+          Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
+          intent.putExtra("uidd",name);
+          startActivity(intent);
+
+        }
+      });
 
 
     } else {
