@@ -37,6 +37,8 @@ import com.bwie.test.chatdemo.bean.UserInfoBean;
 import com.bwie.test.chatdemo.mpersenter.RegistedPersenter;
 
 import com.bwie.test.chatdemo.mview.RegistedView;
+import com.bwie.test.chatdemo.utils.PreferencesUtils;
+import com.bwie.test.chatdemo.witgh.keybord.KeyBoardHelper;
 import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -47,7 +49,7 @@ import com.hyphenate.chat.EMClient;
  * 类用途：
  */
 
-public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > implements RegistedView {
+public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > implements RegistedView,KeyBoardHelper.OnKeyBoardStatusChangeListener {
   private View head;
   private TextView right_title;
   private CheckBox hidepwd;
@@ -199,6 +201,12 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
     hidepwd = (CheckBox) findViewById(R.id.hidepwd);  //密码 明暗文展示按钮
     loginRegisted = (Button) findViewById(R.id.login_registed); //注册按钮
     loginLogin = (Button) findViewById(R.id.login_login); //登陆按钮
+
+    KeyBoardHelper keyBoardHelper = new KeyBoardHelper(this) ;
+
+    keyBoardHelper.onCreate();
+
+    keyBoardHelper.setOnKeyBoardStatusChangeListener(this);
   }
 
 
@@ -232,14 +240,14 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
     int result_code = userInfoBean.getResult_code();
 
     if (result_code == 200) {
-      String userName = userInfoBean.getData().getPhone();
-      String password = userInfoBean.getData().getPassword();
-      EMClient.getInstance().login(userName,password,new EMCallBack() {//回调
+      int userName = userInfoBean.getData().getUserId();
+      String password = userInfoBean.getData().getYxpassword();
+      EMClient.getInstance().login(userName+"",password,new EMCallBack() {//回调
         @Override
         public void onSuccess() {
           EMClient.getInstance().groupManager().loadAllGroups();
           EMClient.getInstance().chatManager().loadAllConversations();
-          Log.d("main", "登录聊天服务器成功！");
+          Log.e("main", "登录聊天服务器成功！");
           Intent intent = new Intent(Login.this, TabActivity.class);
           intent.putExtra("info", result);
           startActivity(intent);
@@ -253,8 +261,8 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
 
         @Override
         public void onError(int code, String message) {
-          Log.d("main", "登录聊天服务器失败！");
-          Log.d("main", message+"    --" +code);
+          Log.e("main", "登录聊天服务器失败！");
+          Log.e("main", message+"    --" +code);
 
 
         }
@@ -316,4 +324,17 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
     return false;
   }
 
+  @Override
+  public void OnKeyBoardPop(int keyBoardheight) {
+    PreferencesUtils.addConfigInfo(this,"kh",keyBoardheight);
+
+    System.out.println("keyBoardheight OnKeyBoardPop = " + keyBoardheight);
+  }
+
+  @Override
+  public void OnKeyBoardClose(int oldKeyBoardheight) {
+    System.out.println("keyBoardheight OnKeyBoardClose = " + oldKeyBoardheight);
+
+
+  }
 }

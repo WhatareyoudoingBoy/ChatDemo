@@ -2,12 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 android {
+
+
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.bwie.test.chatdemo"
-        minSdkVersion 14
-        targetSdkVersion 25
+        minSdkVersion 22
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -50,7 +52,6 @@ dependencies {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -65,10 +66,14 @@ dependencies {
     compile 'com.android.support:support-v4:26.0.0-alpha1'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'org.greenrobot:greendao:3.0.1'
-    //    compile 'org.greenrobot:greendao-generator:3.0.0'
     compile 'net.zetetic:android-database-sqlcipher:3.5.7'
     compile 'com.github.florent37:arclayout:1.0.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:+'
-    compile project(':easeui')
+    compile 'com.jakewharton:butterknife:8.6.0'
+    compile files('libs/org.apache.http.legacy.jar')
+
+    compile 'com.github.bumptech.glide:glide:+'
+    compile 'com.android.support:multidex:+'
+    compile 'com.lqr.emoji:library:1.0.2'
 }

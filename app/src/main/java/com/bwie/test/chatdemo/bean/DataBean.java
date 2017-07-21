@@ -141,12 +141,22 @@ public  class DataBean {
   private String introduce;
   private String imagePath;
   private String nickname;
+  private String yxpassword;
+
+  public String getYxpassword() {
+    return yxpassword;
+  }
+
+  public void setYxpassword(String yxpassword) {
+    this.yxpassword = yxpassword;
+  }
+
   private int userId;
   private double lat;
-  @Generated(hash = 1484041150)
+  @Generated(hash = 833383309)
   public DataBean(Long id, String area, String password, long lasttime, long createtime,
       String gender, double lng, String phone, String introduce, String imagePath, String nickname,
-      int userId, double lat) {
+      String yxpassword, int userId, double lat) {
     this.id = id;
     this.area = area;
     this.password = password;
@@ -158,6 +168,7 @@ public  class DataBean {
     this.introduce = introduce;
     this.imagePath = imagePath;
     this.nickname = nickname;
+    this.yxpassword = yxpassword;
     this.userId = userId;
     this.lat = lat;
   }

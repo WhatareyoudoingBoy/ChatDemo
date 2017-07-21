@@ -1,5 +1,7 @@
 package com.bwie.test.chatdemo.mmodel;
 
+import android.util.Log;
+
 import com.bwie.test.chatdemo.MyApplication;
 import com.bwie.test.chatdemo.bean.RegisterBean;
 import com.bwie.test.chatdemo.core.JNICore;
@@ -34,7 +36,7 @@ public class RegistedModelmpl implements RegistedModel {
   }
 
   @Override
-  public void postUserInfo(final String phone, final String username, final String pwd, String sexy, String age, String location, String des, final RegistedModelListner listner) {
+  public void postUserInfo(String phone,  String username,  String pwd, String sexy, String age, String location, String des, final RegistedModelListner listner) {
 
     Map<String,String> map = new HashMap<String,String>();
     map.put("user.phone",phone);
@@ -67,20 +69,22 @@ public class RegistedModelmpl implements RegistedModel {
           PreferencesUtils.addConfigInfo(MyApplication.getApplication(),"nickname",registerBean.getData().getNickname());
 
 
-          /**
-           * 环信 注册 （因为是异步，得开启子线程）；
-           */
-      new Thread(){
-        @Override
-        public void run() {
-          super.run();
-          try {
-            EMClient.getInstance().createAccount(phone, Md5Utils.getMD5(pwd));//同步方法
-          } catch (HyphenateException e) {
-            e.printStackTrace();
-          }
-        }
-      }.start();
+//          /**
+//           * 环信 注册 （因为是异步，得开启子线程）；
+//           */
+//      new Thread(){
+//        @Override
+//        public void run() {
+//          super.run();
+//          try {
+//            EMClient.getInstance().createAccount(phone, Md5Utils.getMD5(pwd));//同步方法
+//
+//          } catch (HyphenateException e) {
+//            e.printStackTrace();
+//            Log.e("注册失败", "");
+//          }
+//        }
+//      }.start();
         }
         listner.registedOnSuccess(registerBean);
 

@@ -92,7 +92,7 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
   public void onUserbyidSuccess(String result) {
     Gson gson = new Gson();
     InfoUserBean infoUserBean = gson.fromJson(result, InfoUserBean.class);
-    InfoUserBean.DataBean data = infoUserBean.getData();
+    final InfoUserBean.DataBean data = infoUserBean.getData();
     int result_code1 = infoUserBean.getResult_code();
     int relation = data.getRelation();
     if (relation == 1) {
@@ -103,9 +103,9 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
       sendMsg.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          name = nickname.getText().toString().trim();
+//          name = nickname.getText().toString().trim();
           Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
-          intent.putExtra("uidd",name);
+          intent.putExtra("uidd",userid);
           startActivity(intent);
 
         }
@@ -154,7 +154,9 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
     Gson gson = new Gson();
     FriendBean friendBean = gson.fromJson(result, FriendBean.class);
     int result_code = friendBean.getResult_code();
+
     FriendBean.AddUserBean addUser = friendBean.getAddUser();
+    final String imagePath = addUser.getImagePath();
     int relation = addUser.getRelation();
     if (relation == 1) {
       addFriend.setVisibility(View.INVISIBLE);
@@ -166,7 +168,7 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
         public void onClick(View v) {
           name = nickname.getText().toString().trim();
           Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
-          intent.putExtra("uidd",name);
+          intent.putExtra("uidd",userid);
           startActivity(intent);
 
         }
@@ -189,7 +191,8 @@ public class UserInfoActivity extends BaseMvpActivity< UserInfoView, UserInfoPer
         public void onClick(View v) {
           name = nickname.getText().toString().trim();
           Intent intent = new Intent(UserInfoActivity.this, ChatActivity.class);
-          intent.putExtra("uidd",name);
+          intent.putExtra("uidd",userid);
+          intent.putExtra("userface",imagePath);
           startActivity(intent);
 
         }

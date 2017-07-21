@@ -35,8 +35,9 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
         public final static Property Introduce = new Property(8, String.class, "introduce", false, "INTRODUCE");
         public final static Property ImagePath = new Property(9, String.class, "imagePath", false, "IMAGE_PATH");
         public final static Property Nickname = new Property(10, String.class, "nickname", false, "NICKNAME");
-        public final static Property UserId = new Property(11, int.class, "userId", false, "USER_ID");
-        public final static Property Lat = new Property(12, double.class, "lat", false, "LAT");
+        public final static Property Yxpassword = new Property(11, String.class, "yxpassword", false, "YXPASSWORD");
+        public final static Property UserId = new Property(12, int.class, "userId", false, "USER_ID");
+        public final static Property Lat = new Property(13, double.class, "lat", false, "LAT");
     };
 
 
@@ -63,8 +64,9 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
                 "\"INTRODUCE\" TEXT," + // 8: introduce
                 "\"IMAGE_PATH\" TEXT," + // 9: imagePath
                 "\"NICKNAME\" TEXT," + // 10: nickname
-                "\"USER_ID\" INTEGER NOT NULL ," + // 11: userId
-                "\"LAT\" REAL NOT NULL );"); // 12: lat
+                "\"YXPASSWORD\" TEXT," + // 11: yxpassword
+                "\"USER_ID\" INTEGER NOT NULL ," + // 12: userId
+                "\"LAT\" REAL NOT NULL );"); // 13: lat
     }
 
     /** Drops the underlying database table. */
@@ -119,8 +121,13 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
         if (nickname != null) {
             stmt.bindString(11, nickname);
         }
-        stmt.bindLong(12, entity.getUserId());
-        stmt.bindDouble(13, entity.getLat());
+ 
+        String yxpassword = entity.getYxpassword();
+        if (yxpassword != null) {
+            stmt.bindString(12, yxpassword);
+        }
+        stmt.bindLong(13, entity.getUserId());
+        stmt.bindDouble(14, entity.getLat());
     }
 
     @Override
@@ -169,8 +176,13 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
         if (nickname != null) {
             stmt.bindString(11, nickname);
         }
-        stmt.bindLong(12, entity.getUserId());
-        stmt.bindDouble(13, entity.getLat());
+ 
+        String yxpassword = entity.getYxpassword();
+        if (yxpassword != null) {
+            stmt.bindString(12, yxpassword);
+        }
+        stmt.bindLong(13, entity.getUserId());
+        stmt.bindDouble(14, entity.getLat());
     }
 
     @Override
@@ -192,8 +204,9 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // introduce
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // imagePath
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // nickname
-            cursor.getInt(offset + 11), // userId
-            cursor.getDouble(offset + 12) // lat
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // yxpassword
+            cursor.getInt(offset + 12), // userId
+            cursor.getDouble(offset + 13) // lat
         );
         return entity;
     }
@@ -211,8 +224,9 @@ public class DataBeanDao extends AbstractDao<DataBean, Long> {
         entity.setIntroduce(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setImagePath(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setNickname(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setUserId(cursor.getInt(offset + 11));
-        entity.setLat(cursor.getDouble(offset + 12));
+        entity.setYxpassword(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setUserId(cursor.getInt(offset + 12));
+        entity.setLat(cursor.getDouble(offset + 13));
      }
     
     @Override
