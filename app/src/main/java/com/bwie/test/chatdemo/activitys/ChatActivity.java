@@ -354,8 +354,5 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
   }
 
 
-  public native void open();
-  static {
-    System.loadLibrary("speex");
-  }
+
 }
