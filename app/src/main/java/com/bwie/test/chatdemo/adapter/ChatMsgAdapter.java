@@ -14,6 +14,9 @@ import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.emjoutils.EaseSmileUtils;
 import com.hyphenate.chat.EMMessage;
 
+import com.hyphenate.chat.EMVoiceMessageBody;
+import com.lqr.emoji.MoonUtils;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,69 +26,82 @@ import java.util.List;
 
 public class ChatMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    LayoutInflater inflater;
-    Context context;
-    private List<EMMessage> list;
-    private List<String> image;
+  LayoutInflater inflater;
+  Context context;
+  private List< EMMessage > list;
+  private List< String > image;
 
-    public ChatMsgAdapter(Context context, List<EMMessage> list) {
-        this.context = context;
-        this.inflater = LayoutInflater.from(context);
-        this.list = list;
+  public ChatMsgAdapter(Context context, List< EMMessage > list) {
+    this.context = context;
+    this.inflater = LayoutInflater.from(context);
+    this.list = list;
+  }
+
+  private OnItemClickListener mOnItemClickListener;
+  private OnItemLongClickListener mOnItemLongClickListener;
+
+  public interface OnItemClickListener {
+    void onItemClick(View view, String position);
+  }
+
+  public interface OnItemLongClickListener {
+    void onItemLongClick(View view, String position);
+  }
+
+  public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+    this.mOnItemClickListener = mOnItemClickListener;
+  }
+
+  public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
+    this.mOnItemLongClickListener = mOnItemLongClickListener;
+  }
+
+  @Override
+  public int getItemViewType(int position) {
+    if (list.get(position).getType() == EMMessage.Type.TXT) {
+      if (list.get(position).direct() == EMMessage.Direct.RECEIVE) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+    if (list.get(position).getType() == EMMessage.Type.VOICE) {
+      if (list.get(position).direct() == EMMessage.Direct.RECEIVE) {
+        return 2;
+      } else {
+        return 3;
+      }
+    }
+    return -1;
+  }
+
+  @Override
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    if (viewType == 0) {
+      View view = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.item_chat_text_right, parent, false);
+      //将创建的View注册点击事件
+      return new ViewHolderRight(view);
+    } else if (viewType == 1) {
+      View view = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.item_chat_text_left, parent, false);
+      //将创建的View注册点击事件
+      return new ViewHolderLeft(view);
+    }
+    if (viewType == 2) {
+      // 语音接收方
+      View view = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.chatvoice_left, parent, false);
+      return new VoiceViewHolderLeft(view);
+    } else {
+      // 语音发送方
+      View view1 = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.chatvoice_right, parent, false);
+      return new VoiceViewHolderRight(view1);
     }
 
-    private OnItemClickListener mOnItemClickListener;
-    private OnItemLongClickListener mOnItemLongClickListener;
+  }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public interface OnItemLongClickListener {
-        void onItemLongClick(View view, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener mOnItemClickListener) {
-        this.mOnItemClickListener = mOnItemClickListener;
-    }
-
-    public void setOnItemLongClickListener(OnItemLongClickListener mOnItemLongClickListener) {
-        this.mOnItemLongClickListener = mOnItemLongClickListener;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-
-        if (list.get(position).getType() == EMMessage.Type.TXT) {
-            if (list.get(position).direct() == EMMessage.Direct.RECEIVE) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-
-        return -1;
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        if (viewType == 0) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_text_right, parent, false);
-            //将创建的View注册点击事件
-
-            return new ViewHolderRight(view);
-        } else  {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_chat_text_left, parent, false);
-            //将创建的View注册点击事件
-
-            return new ViewHolderLeft(view);
-        }
-
-    }
 
     public void leftImage(String iamgePath){
 
@@ -99,59 +115,48 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         String s = list.get(position).getBody().toString();
         String substring = s.substring(5, s.length() - 1);
         if (holder instanceof ViewHolderRight) {
             final ViewHolderRight viewHolderRight = (ViewHolderRight) holder;
+          MoonUtils.identifyFaceExpression(context,viewHolderRight.textRightImageText,substring,40); //表情转化
 
-            viewHolderRight.textRightImageText.setText(EaseSmileUtils.getSmiledText(context, substring));
-            if (mOnItemClickListener != null) {
-                //为ItemView设置监听器
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = viewHolderRight.getLayoutPosition(); // 1
-                        mOnItemClickListener.onItemClick(viewHolderRight.itemView, position); // 2
-                    }
-                });
-            }
-            if (mOnItemLongClickListener != null) {
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        int position = viewHolderRight.getLayoutPosition();
-                        mOnItemLongClickListener.onItemLongClick(viewHolderRight.itemView, position);
-                        //返回true 表示消耗了事件 事件不会继续传递
-                        return true;
-                    }
-                });
-            }
         }else if (holder instanceof ViewHolderLeft){
             final ViewHolderLeft viewHolderLeft = (ViewHolderLeft) holder;
 
             viewHolderLeft.textLeftImageText.setText(EaseSmileUtils.getSmiledText(context, substring));
-            if (mOnItemClickListener != null) {
-                //为ItemView设置监听器
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int position = viewHolderLeft.getLayoutPosition(); // 1
-                        mOnItemClickListener.onItemClick(viewHolderLeft.itemView, position); // 2
-                    }
-                });
-            }
-            if (mOnItemLongClickListener != null) {
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        int position = viewHolderLeft.getLayoutPosition();
-                        mOnItemLongClickListener.onItemLongClick(viewHolderLeft.itemView, position);
-                        //返回true 表示消耗了事件 事件不会继续传递
-                        return true;
-                    }
-                });
-            }
+
+        }else if(holder instanceof VoiceViewHolderLeft){
+            //接收方
+            final VoiceViewHolderLeft voiceViewHolderLeft = (VoiceViewHolderLeft) holder;
+            final EMVoiceMessageBody body = (EMVoiceMessageBody) list.get(position).getBody();
+
+          if(mOnItemClickListener != null){
+             ((VoiceViewHolderLeft) holder).voiceLeftVoice.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                 int leftVoide = voiceViewHolderLeft.getLayoutPosition();
+                 mOnItemClickListener.onItemClick(voiceViewHolderLeft.voiceLeftVoice,body.getLocalUrl());
+               }
+             });
+           }
+
+
+
+        }else {
+            //发送方
+            final VoiceViewHolderRight voiceViewHolderRight = (VoiceViewHolderRight) holder;
+             final EMVoiceMessageBody body1 = (EMVoiceMessageBody) list.get(position).getBody();
+          if(mOnItemLongClickListener != null){
+            voiceViewHolderRight.voiceRightVoice.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                int voiceViewHolderRightLayoutPosition = voiceViewHolderRight.getLayoutPosition();
+                mOnItemLongClickListener.onItemLongClick(voiceViewHolderRight.voiceRightVoice,body1.getLocalUrl());
+              }
+            });
+          }
         }
 
     }
@@ -173,7 +178,6 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public ViewHolderRight(View view) {
             super(view);
-//            ButterKnife.bind(this, view);
             textRightImageText= (TextView) view.findViewById(R.id.text_right_image_text);
             textRightImage= (ImageView) view.findViewById(R.id.text_right_image);
 
@@ -187,11 +191,37 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public ViewHolderLeft(View view) {
             super(view);
-//            ButterKnife.bind(this, view);
 
             textLeftImage= (ImageView) view.findViewById(R.id.text_left_image);
             textLeftImageText= (TextView) view.findViewById(R.id.text_left_image_text);
 
         }
     }
+
+    private static class VoiceViewHolderLeft extends RecyclerView.ViewHolder{
+
+        ImageView voiceLeftIm,voiceLeftVoice;
+
+
+        public VoiceViewHolderLeft(View itemView) {
+            super(itemView);
+
+            voiceLeftIm = (ImageView) itemView.findViewById(R.id.chat_voice_left_im);
+            voiceLeftVoice = (ImageView) itemView.findViewById(R.id.chat_voice_left_voice);
+
+        }
+    }
+    private static class VoiceViewHolderRight extends RecyclerView.ViewHolder{
+
+        ImageView voiceRightIm,voiceRightVoice;
+
+        public VoiceViewHolderRight(View itemView) {
+            super(itemView);
+
+            voiceRightIm = (ImageView) itemView.findViewById(R.id.chat_voice_right_im);
+            voiceRightVoice = (ImageView) itemView.findViewById(R.id.chat_voice_right_voice);
+
+        }
+    }
+
 }

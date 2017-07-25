@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/chat_voice_right_im"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_round"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"/>
+    <ImageView
+        android:id="@+id/chat_voice_right_voice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/send_voice_icon_3"
+        android:layout_marginEnd="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/chat_voice_right_im"/>
+</RelativeLayout>

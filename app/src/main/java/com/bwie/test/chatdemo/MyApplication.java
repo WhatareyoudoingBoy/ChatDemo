@@ -1,12 +1,13 @@
 package com.bwie.test.chatdemo;
 
 
-
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.support.multidex.MultiDex;
+
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -37,22 +38,18 @@ import static com.hyphenate.util.EasyUtils.TAG;
 public class MyApplication extends MobApplication {
 
 
-  public static MyApplication application ;
+  public static MyApplication application;
   private static DaoSession daoSession;
 
   @Override
   public void onCreate() {
-    MultiDex.install(this);
     super.onCreate();
     application = this;
-
-
     DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, "everyon.db", null);
     Database db = devOpenHelper.getWritableDb();
     DaoMaster daoMaster = new DaoMaster(db);
     daoSession = daoMaster.newSession();
     System.loadLibrary("core");
-
     //Emoji表情
     LQREmotionKit.init(application, new IImageLoader() {
       @Override
@@ -60,45 +57,35 @@ public class MyApplication extends MobApplication {
         Picasso.with(context).load(path).into(imageView);
       }
     });
-
-
-
     int pid = android.os.Process.myPid();
     String processAppName = getAppName(pid);
 // 如果APP启用了远程的service，此application:onCreate会被调用2次
 // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
 // 默认的APP会在以包名为默认的process name下运行，如果查到的process name不是APP的process name就立即返回
-
-    if (processAppName == null ||!processAppName.equalsIgnoreCase(this.getPackageName())) {
+    if (processAppName == null || !processAppName.equalsIgnoreCase(this.getPackageName())) {
       Log.e(TAG, "enter the service process!");
-
       // 则此application::onCreate 是被service 调用的，直接返回
       return;
     }
     EMOptions options = new EMOptions();
 // 默认添加好友时，是不需要验证的，改成需要验证
     options.setAcceptInvitationAlways(false);
-
 //初始化
     EMClient.getInstance().init(this, options);
 //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
     EMClient.getInstance().setDebugMode(true);
 
 
-
-
-
-
   }
 
-  public static DaoSession getDaoSession(){
+  public static DaoSession getDaoSession() {
     return daoSession;
   }
 
 
-  public static MyApplication getApplication(){
-    if(application == null){
-      application = getApplication() ;
+  public static MyApplication getApplication() {
+    if (application == null) {
+      application = getApplication();
     }
     return application;
   }
@@ -121,6 +108,38 @@ public class MyApplication extends MobApplication {
       }
     }
     return processName;
+  }
+
+  public static void ring() {
+    SoundPool soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+    soundPool.load(application, R.raw.avchat_ring, 1);
+    soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+
+      @Override
+      public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+        soundPool.play(sampleId, 1, 1, 0, 0, 1);
+
+      }
+
+    });
+
+
+  }
+
+  public static void callTo() {
+    SoundPool soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+    soundPool.load(application, R.raw.avchat_connecting, 1);
+    soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+
+      @Override
+      public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+        soundPool.play(sampleId, 1, 1, 0, 0, 1);
+
+      }
+
+    });
+
+
   }
 
 }

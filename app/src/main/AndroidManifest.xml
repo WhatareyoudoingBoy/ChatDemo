@@ -131,8 +131,8 @@
         </activity>
         <activity android:name=".activitys.PhotoActivity">
         </activity>
-        <activity android:name=".activitys.ChatActivity" android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
-        </activity>
+        <activity android:name=".activitys.ChatActivity"/>
+       <activity android:name=".activitys.VideoActivity" />
     </application>
 
 </manifest>
