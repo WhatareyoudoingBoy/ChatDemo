@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 
 import com.bwie.test.chatdemo.R;
-
 import com.bwie.test.chatdemo.emjoutils.EaseSmileUtils;
 import com.hyphenate.chat.EMMessage;
 

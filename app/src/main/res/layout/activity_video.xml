@@ -44,25 +44,25 @@
             android:layout_marginBottom="20dp"
            android:background="@drawable/offchat"
             android:id="@+id/videoactivity_bt_jieting"
-            android:layout_width="50dp"
+            android:layout_width="100dp"
 
-            android:layout_height="50dp"/>
+            android:layout_height="100dp"/>
 
         <Button
             android:layout_marginBottom="20dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/offchat"
             android:id="@+id/videoactivity_bt_guaduan"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
 
         <Button
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
             android:layout_alignParentRight="true"
             android:id="@+id/videoactivity_bt_jujie"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
 
             android:background="@drawable/nochat"/>
 

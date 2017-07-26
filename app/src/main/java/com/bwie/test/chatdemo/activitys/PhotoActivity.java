@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.bwie.test.chatdemo.R;
 
+import com.bwie.test.chatdemo.R;
 import com.squareup.picasso.Picasso;
 
 public class PhotoActivity extends AppCompatActivity {

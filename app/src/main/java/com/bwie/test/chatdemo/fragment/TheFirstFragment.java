@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bwie.test.chatdemo.MyTost;
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.activitys.UserInfoActivity;
 import com.bwie.test.chatdemo.adapter.FirstRecyclerAdapter;

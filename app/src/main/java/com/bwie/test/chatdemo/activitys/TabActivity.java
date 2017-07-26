@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 
 
 import com.bwie.test.chatdemo.MyApplication;
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.IActivity;
 

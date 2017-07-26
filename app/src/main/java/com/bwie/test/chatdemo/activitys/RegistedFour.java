@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bwie.test.chatdemo.MyApplication;
 import com.bwie.test.chatdemo.MyTost;
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.BaseMvpActivity;
 import com.bwie.test.chatdemo.bean.RegisterBean;

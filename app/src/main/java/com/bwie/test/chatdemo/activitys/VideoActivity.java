@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bwie.test.chatdemo.MyApplication;
+
 import com.bwie.test.chatdemo.R;
 import com.hyphenate.chat.EMCallStateChangeListener;
 import com.hyphenate.chat.EMClient;
@@ -65,6 +66,7 @@ public class VideoActivity extends Activity {
       videoactivityBtGuaduan.setVisibility(View.VISIBLE);
       //拨打视频通话
       try {
+
         EMClient.getInstance().callManager().makeVideoCall(uid);
         MyApplication.callTo();
 
@@ -115,15 +117,19 @@ public class VideoActivity extends Activity {
             break;
           case CONNECTED: // 双方已经建立连接
             Log.e("videoactivityTv ", "双方已经建立连接");
+
             break;
           case ACCEPTED: // 电话接通成功
             runOnUiThread(new Runnable() {
               @Override
               public void run() {
                 videoactivityTv.setText("通话中");
-
+                videoactivityBtJieting.setVisibility(View.GONE);
+                videoactivityBtJujie.setVisibility(View.GONE);
+                videoactivityBtGuaduan.setVisibility(View.VISIBLE);
               }
             });
+
             Log.e("videoactivityTv ", "电话接通成功");
             break;
           case DISCONNECTED: // 电话断了
@@ -151,7 +157,7 @@ public class VideoActivity extends Activity {
 
 
         public void onclickEvent(){
-          videoactivityBtJieting.setOnClickListener(new View.OnClickListener() {
+          videoactivityBtJujie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               //接听
@@ -177,7 +183,8 @@ public class VideoActivity extends Activity {
               finish();
             }
           });
-          videoactivityBtJujie.setOnClickListener(new View.OnClickListener() {
+
+          videoactivityBtJieting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               //拒接

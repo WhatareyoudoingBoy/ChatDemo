@@ -9,6 +9,7 @@ import org.json.JSONArray;
 
 import android.text.TextUtils;
 
+
 import com.bwie.test.chatdemo.R;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;

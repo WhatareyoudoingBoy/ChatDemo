@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.BaseMvpActivity;
 import com.bwie.test.chatdemo.bean.RegisterBean;

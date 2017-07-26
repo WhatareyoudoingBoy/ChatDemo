@@ -32,7 +32,6 @@ import android.widget.RelativeLayout;
 
 
 import com.bwie.test.chatdemo.R;
-
 import com.bwie.test.chatdemo.adapter.ChatMsgAdapter;
 import com.bwie.test.chatdemo.adapter.MoreFunctionGridAdapter;
 import com.bwie.test.chatdemo.utils.SDCardUtils;
@@ -92,8 +91,6 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     }
 
   };
-
-
 
 
   private String uidd;
@@ -198,8 +195,6 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
   }
 
 
-
-
   /**
    * 加载控件
    */
@@ -227,16 +222,10 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     gridFunction.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView< ? > parent, View view, int position, long id) {
-//        Toast.makeText(ChatActivity.this, "语音/视频", Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(ChatActivity.this, VideoActivity.class);
-//          intent.putExtra("usid",uidd);
-//        startActivity(intent);
-
-          Intent intn = new Intent(ChatActivity.this,VideoActivity.class);
-          intn.putExtra("uid",uidd);
-          intn.putExtra("type",1);
-          startActivity(intn);
-
+         Intent intn = new Intent(ChatActivity.this, VideoActivity.class);
+        intn.putExtra("uid", uidd);
+        intn.putExtra("type", 1);
+        startActivity(intn);
 
 
       }
@@ -308,15 +297,18 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     biaoqing.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+//        functionLayout.setVisibility(View.GONE);
         setKeyBoardModelPan();
         int tag = (Integer) biaoqing.getTag();
         if (tag == 1) {
           // 显示表情
+          functionLayout.setVisibility(View.GONE);
           hidenKeyBoard(chatMessage);
           mElEmotion.setVisibility(View.VISIBLE);
           biaoqing.setTag(2);
         } else {
           biaoqing.setTag(1);
+          functionLayout.setVisibility(View.GONE);
           //  显示键盘
           showKeyBoard(chatMessage);
         }
@@ -329,9 +321,13 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
         int tag = (Integer) chatMore.getTag();
         if (tag == 1) {
           functionLayout.setVisibility(View.GONE);
+          mElEmotion.setVisibility(View.GONE);
+          hidenKeyBoard(chatMessage);
           chatMore.setTag(0);
         } else {
           functionLayout.setVisibility(View.VISIBLE);
+          mElEmotion.setVisibility(View.GONE);
+          hidenKeyBoard(chatMessage);
           chatMore.setTag(1);
         }
 
@@ -355,6 +351,7 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     yuyin.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        functionLayout.setVisibility(View.GONE);
         setKeyBoardModelPan();
         jianpan.setVisibility(View.VISIBLE);//可见
         yuyin.setVisibility(View.GONE);//隐藏
@@ -368,6 +365,7 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     jianpan.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+        functionLayout.setVisibility(View.GONE);
         setKeyBoardModelPan();
         jianpan.setVisibility(View.GONE);
         yuyin.setVisibility(View.VISIBLE);

@@ -28,6 +28,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
 import com.bwie.test.chatdemo.MyTost;
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.BaseMvpActivity;
 import com.bwie.test.chatdemo.bean.RegisterBean;

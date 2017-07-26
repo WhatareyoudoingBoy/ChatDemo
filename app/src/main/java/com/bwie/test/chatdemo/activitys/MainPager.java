@@ -2,6 +2,7 @@ package com.bwie.test.chatdemo.activitys;
 
 import android.os.Bundle;
 
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.BaseActivity;
 

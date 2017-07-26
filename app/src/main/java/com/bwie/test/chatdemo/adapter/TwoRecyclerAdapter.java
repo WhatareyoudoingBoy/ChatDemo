@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.bean.FriendlistBean;
 import com.squareup.picasso.Picasso;

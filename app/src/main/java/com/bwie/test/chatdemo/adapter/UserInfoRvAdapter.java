@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.bean.InfoUserBean;
 import com.squareup.picasso.Picasso;

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
+
 import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.bean.NearbyPeople;
 import com.bwie.test.chatdemo.bean.UserInfoBean;
