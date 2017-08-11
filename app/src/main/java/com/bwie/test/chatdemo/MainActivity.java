@@ -20,6 +20,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.bwie.test.chatdemo.activitys.Login;
 import com.bwie.test.chatdemo.activitys.Registed;
 import com.bwie.test.chatdemo.base.BaseActivity;
+import com.tencent.bugly.crashreport.CrashReport;
 
 public class MainActivity extends BaseActivity {
 

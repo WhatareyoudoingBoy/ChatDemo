@@ -10,17 +10,87 @@ android {
         applicationId "com.bwie.test.chatdemo"
         minSdkVersion 19
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        // 默认是umeng的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+
+        ndk {
+            // 设置支持的SO库架构
+            abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+//签名
+    signingConfigs {
+        debug {
+
+        }
+        release {// 自己的签名文件
+            storeFile file("D:/wxykeystorefile.jks")
+            storePassword "580231"
+            keyAlias "chatkey"
+            keyPassword "920623"
         }
     }
+
+
+
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //签名
+            signingConfig signingConfigs.release
+
+
+            minifyEnabled false
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为app_v1.0_2015-xx-xx_xxxx.apk
+
+                        def fileName = "app_v${defaultConfig.versionName}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+
+                }
+            }
+
+
+        }
+    }
+
+    productFlavors {
+//        kuan {}
+//        xiaomi {}
+//        qh360 {}
+//        baidu {}
+//        wandoujia {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+
+
+
+
+
+
+
     greendao {
         schemaVersion 1
         daoPackage 'com.bwie.test.chatdemo.greendao.gen'
@@ -54,6 +124,10 @@ dependencies {
     }
     compile files('libs/org.apache.http.legacy.jar')
 
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -72,8 +146,11 @@ dependencies {
     compile 'com.github.florent37:arclayout:1.0.2'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.github.bumptech.glide:glide:+'
-
     compile 'com.lqr.emoji:library:1.0.2'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:+'
+    compile 'com.qiniu:happy-dns:0.2.8'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:+'
 }

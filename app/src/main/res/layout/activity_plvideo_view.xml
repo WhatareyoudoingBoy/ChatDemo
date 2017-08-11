@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:overScrollMode="never"
+    android:scrollbars="none"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.pili.pldroid.player.widget.PLVideoView
+            android:id="@+id/VideoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+    </RelativeLayout>
+</ScrollView>
+        <LinearLayout
+            android:id="@+id/LoadingView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="buffer"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_margin="20dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="onClickSwitchScreen"
+                android:src="@mipmap/ic_switch_screen"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/CoverView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:src="@mipmap/thumbnail"
+            android:visibility="invisible"/>
+
+        <ListView
+            android:id="@+id/screen_list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="#00000000"
+            android:stackFromBottom="true"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/LoadingView"
+            android:layout_alignParentStart="true">
+
+        </ListView>
+
+        <RelativeLayout
+            android:id="@+id/live_relative"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/screen_list"
+            >
+
+            <EditText
+                android:backgroundTintMode="src_atop"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/live_edtext"
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:hint="请输入聊天内容"
+                android:textSize="16sp"/>
+
+            <Button
+                android:layout_alignBottom="@id/live_edtext"
+                android:id="@+id/live_send"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/live_edtext"
+                android:background="@drawable/buttonshape"
+                android:text="发送"
+                android:textColorHighlight="@color/cblack"
+                android:textSize="10sp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</FrameLayout>

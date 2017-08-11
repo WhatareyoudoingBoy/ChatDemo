@@ -119,6 +119,9 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
     list = new ArrayList< EMMessage >();
     adapter = new ChatMsgAdapter(this, list);
     chatMore.setTag(0);
+
+
+
     adapter.setOnItemClickListener(new ChatMsgAdapter.OnItemClickListener() {
       @Override
       public void onItemClick(View view, String position) {
@@ -136,6 +139,11 @@ public class ChatActivity extends AppCompatActivity implements KeyBoardHelper.On
       }
     });
     chatRecycler.setAdapter(adapter);
+
+
+
+
+
     /**
      * 接收消息
      */

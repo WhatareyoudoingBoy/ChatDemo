@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -18,11 +19,18 @@ import com.hyphenate.chat.EMOptions;
 import com.lqr.emoji.IImageLoader;
 import com.lqr.emoji.LQREmotionKit;
 import com.mob.MobApplication;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.qiniu.pili.droid.streaming.StreamingEnv;
 import com.squareup.picasso.Picasso;
+import com.tencent.bugly.crashreport.CrashReport;
 
 
 import org.greenrobot.greendao.database.Database;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -45,6 +53,15 @@ public class MyApplication extends MobApplication {
   public void onCreate() {
     super.onCreate();
     application = this;
+
+    StreamingEnv.init(getApplicationContext());
+
+
+    //Bugly
+    CrashReport.initCrashReport(getApplicationContext(), "0142b7e869", false);
+
+    initImageLoader(); //ImageLoader
+
     DaoMaster.DevOpenHelper devOpenHelper = new DaoMaster.DevOpenHelper(this, "everyon.db", null);
     Database db = devOpenHelper.getWritableDb();
     DaoMaster daoMaster = new DaoMaster(db);
@@ -73,7 +90,7 @@ public class MyApplication extends MobApplication {
 //初始化
     EMClient.getInstance().init(this, options);
 //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
-    EMClient.getInstance().setDebugMode(true);
+    EMClient.getInstance().setDebugMode(false);
 
 
   }
@@ -139,6 +156,41 @@ public class MyApplication extends MobApplication {
 
     });
 
+
+  }
+
+  /**
+   * 获取进程号对应的进程名
+   *
+   * @param pid 进程号
+   * @return 进程名
+   */
+  private static String getProcessName(int pid) {
+    BufferedReader reader = null;
+    try {
+      reader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+      String processName = reader.readLine();
+      if (!TextUtils.isEmpty(processName)) {
+        processName = processName.trim();
+      }
+      return processName;
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
+    } finally {
+      try {
+        if (reader != null) {
+          reader.close();
+        }
+      } catch (IOException exception) {
+        exception.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+  private void initImageLoader() {
+    ImageLoaderConfiguration configuration = ImageLoaderConfiguration.createDefault(this);
+    ImageLoader.getInstance().init(configuration);
 
   }
 

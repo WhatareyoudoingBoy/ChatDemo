@@ -15,6 +15,8 @@ import com.bwie.test.chatdemo.R;
 import com.bwie.test.chatdemo.base.IActivity;
 
 import com.bwie.test.chatdemo.fragment.TheFirstFragment;
+import com.bwie.test.chatdemo.fragment.TheFourFragment;
+import com.bwie.test.chatdemo.fragment.TheThirdFragment;
 import com.bwie.test.chatdemo.fragment.TheTwoFragment;
 import com.bwie.test.chatdemo.witgh.ButtomLayout;
 import com.hyphenate.chat.EMClient;
@@ -77,24 +79,24 @@ public class TabActivity extends IActivity implements ButtomLayout.OnSelectListe
   public void createFragment(Bundle savedInstanceState) {
     TheFirstFragment firstFragment = (TheFirstFragment) fragmentManager.findFragmentByTag("FirstFragment");
     TheTwoFragment secondFragment = (TheTwoFragment) fragmentManager.findFragmentByTag("SecondFragment");
-//        ThirdFragment thirdFragment = (ThirdFragment) fragmentManager.findFragmentByTag("ThirdFragment");
-//        FourthFragment fourthFragment = (FourthFragment) fragmentManager.findFragmentByTag("FourthFragment");
+    TheThirdFragment thirdFragment = (TheThirdFragment) fragmentManager.findFragmentByTag("ThirdFragment");
+    TheFourFragment fourthFragment = (TheFourFragment) fragmentManager.findFragmentByTag("FourthFragment");
     if (firstFragment == null) {
       firstFragment = new TheFirstFragment();
     }
     if (secondFragment == null) {
       secondFragment = new TheTwoFragment();
     }
-//        if(thirdFragment == null){
-//            thirdFragment = new ThirdFragment();
-//        }
-//        if(fourthFragment == null){
-//            fourthFragment = new FourthFragment();
-//        }
+        if(thirdFragment == null){
+            thirdFragment = new TheThirdFragment();
+        }
+        if(fourthFragment == null){
+            fourthFragment = new TheFourFragment();
+        }
     fragments.add(firstFragment);
     fragments.add(secondFragment);
-//        fragments.add(thirdFragment);
-//        fragments.add(fourthFragment);
+        fragments.add(thirdFragment);
+        fragments.add(fourthFragment);
   }
 
 

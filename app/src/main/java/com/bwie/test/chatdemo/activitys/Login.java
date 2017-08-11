@@ -27,6 +27,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 
+import com.bwie.test.chatdemo.BuildConfig;
 import com.bwie.test.chatdemo.MyTost;
 
 import com.bwie.test.chatdemo.R;
@@ -239,7 +240,7 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
     Gson gson = new Gson();
     UserInfoBean userInfoBean = gson.fromJson(result, UserInfoBean.class);
     int result_code = userInfoBean.getResult_code();
-
+Log.e("Login", "登陆成功拉拉拉啊拉");
     if (result_code == 200) {
       int userName = userInfoBean.getData().getUserId();
       String password = userInfoBean.getData().getYxpassword();
@@ -252,6 +253,7 @@ public class Login extends BaseMvpActivity< RegistedView, RegistedPersenter > im
           Intent intent = new Intent(Login.this, TabActivity.class);
           intent.putExtra("info", result);
           startActivity(intent);
+          finish();
 
         }
 

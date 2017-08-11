@@ -46,9 +46,9 @@ public class FirstFragmentModellmpl implements FirstModel {
 
         Gson gson = new Gson();
        DataBean nearbyPeople = gson.fromJson(result, DataBean.class);
-        DaoSession daoSession = MyApplication.getDaoSession();
-        DataBeanDao dataBeanDao = daoSession.getDataBeanDao();
-        dataBeanDao.insert(nearbyPeople);
+//        DaoSession daoSession = MyApplication.getDaoSession();
+//        DataBeanDao dataBeanDao = daoSession.getDataBeanDao();
+//        dataBeanDao.insert(nearbyPeople);
 
 
       }
